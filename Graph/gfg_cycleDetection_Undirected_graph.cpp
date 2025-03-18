@@ -1,6 +1,5 @@
 //geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
-//// undirected graph
-////// dfs
+//// dfs
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
@@ -31,7 +30,7 @@ class Solution {
         return false;
     }
 };
-////// bfs
+//// bfs
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
