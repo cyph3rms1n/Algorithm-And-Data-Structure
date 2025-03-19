@@ -1,5 +1,5 @@
 // geeksforgeeks.org/problems/topological-sort/1
-// Topological Sort
+// Topological Sort (Using BFS)
 class Solution {
   public:
     // Function to return list containing vertices in Topological order.
