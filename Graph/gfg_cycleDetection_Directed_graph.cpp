@@ -31,3 +31,46 @@ class Solution {
         return false;
     }
 };
+/////////////////////////////////////////////////////////////////////////////////
+//// BFS
+class Solution {
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(vector<vector<int>> &adj) {
+        // code here
+        int n = adj.size();
+        vector<int> inDegree(n,0);
+        queue<int> que;
+        
+        for(int u=0; u<n; u++){
+            for(auto& v: adj[u]){
+                inDegree[v]++;
+            }
+        }
+        
+        for(int i=0; i<n; i++){
+            if(inDegree[i] == 0){
+                que.push(i);
+            }
+        }
+        
+        int count = 0;
+        
+        while(!que.empty()){
+            int u = que.front();
+            que.pop();
+            count++;
+            
+            for(auto& v : adj[u]){
+                inDegree[v]--;
+                
+                if(inDegree[v] == 0){
+                    que.push(v);
+                }
+            }
+        }
+        
+        if(count == n) return false;
+        else return true;
+    }
+};
