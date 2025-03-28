@@ -21,6 +21,8 @@ public:
     bool isBipartite(vector<vector<int>>& graph) {
         int v = graph.size();
         vector<int> color(v, -1);
+        // 0 for red color 
+        // 1 for green color
 
         for (int i = 0; i < v; i++) {
             if (color[i] == -1) {
