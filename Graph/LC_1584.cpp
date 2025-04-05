@@ -4,7 +4,6 @@ class Solution {
 public:
     typedef pair<int, int> P;
     int findCost(vector<vector<P>>& adj, int n) {
-        // Prim's Algorithm is used to find the minimum cost.
         priority_queue<P, vector<P>, greater<P>> pq;
         pq.push({0, 0});
         vector<bool> inMST(n, false);
@@ -56,3 +55,74 @@ public:
     }
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// Using Kruskal's Algorithm
+class Solution {
+public:
+    vector<int> parent;
+    vector<int> rank;
+
+    int find(int x) {
+        if (x == parent[x])
+            return x;
+
+        return parent[x] = find(parent[x]);
+    }
+
+    void Union(int x, int y) {
+        int parent_x = find(x);
+        int parent_y = find(y);
+
+        if (parent_x == parent_y)
+            return;
+        else if (rank[parent_x] > rank[parent_y]) {
+            parent[parent_y] = parent_x;
+        } else if (rank[parent_x] < rank[parent_y]) {
+            parent[parent_x] = parent_y;
+        } else {
+            parent[parent_y] = parent_x;
+            rank[parent_x]++;
+        }
+    }
+
+    int kruskals(vector<vector<int>>& vec) {
+        int sum = 0;
+        for (auto& temp : vec) {
+            int u = temp[0];
+            int v = temp[1];
+            int wt = temp[2];
+
+            int parent_u = find(u);
+            int parent_v = find(v);
+
+            if (parent_u != parent_v) {
+                Union(u, v);
+                sum += wt;
+            }
+        }
+        return sum;
+    }
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        vector<vector<int>> vec;
+        int V = points.size();
+        parent.resize(V);
+        rank.resize(V, 0);
+
+        for (int i = 0; i < V; i++) {
+            parent[i] = i;
+        }
+        for (int i = 0; i < V; i++) {
+            for (int j = i + 1; j < V; j++) {
+                int dist = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]);
+                vec.push_back({i, j, dist});
+            }
+        }
+
+        auto comparator = [&](vector<int>& vec1, vector<int>& vec2){ 
+            return vec1[2] < vec2[2]; 
+        };
+
+        sort(begin(vec), end(vec), comparator);
+        return kruskals(vec);
+    }
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////
