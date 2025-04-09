@@ -61,7 +61,6 @@ public:
 
                 node = st.top();
                 st.pop();
-
                 result.push_back(node->val);
                 node = node->right;
             }
