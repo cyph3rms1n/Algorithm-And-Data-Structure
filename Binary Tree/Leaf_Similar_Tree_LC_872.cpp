@@ -13,32 +13,21 @@
  */
 class Solution {
 public:
-    void firstTree(TreeNode* root, vector<int>& store1) {
+    void saveLeaf(TreeNode* root, vector<int>& store) {
         if (!root)
             return;
 
-        firstTree(root->left, store1);
+        saveLeaf(root->left, store);
         if (!root->left && !root->right) {
-            store1.push_back(root->val);
+            store.push_back(root->val);
         }
-        firstTree(root->right, store1);
-    }
-
-    void secondTree(TreeNode* root, vector<int>& store2) {
-        if (!root)
-            return;
-
-        secondTree(root->left, store2);
-        if (!root->left && !root->right) {
-            store2.push_back(root->val);
-        }
-        secondTree(root->right, store2);
+        saveLeaf(root->right, store);
     }
 
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
         vector<int> store1, store2;
-        firstTree(root1, store1);
-        secondTree(root2, store2);
+        saveLeaf(root1, store1);
+        saveLeaf(root2, store2);
 
         if (store1.size() != store2.size())
             return false;
