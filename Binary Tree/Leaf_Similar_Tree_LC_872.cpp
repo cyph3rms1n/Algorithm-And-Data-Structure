@@ -1,4 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////
+// Using vector
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -40,3 +41,30 @@ public:
     }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Using string
+class Solution {
+public:
+    void saveLeaf(TreeNode* root, string& s) {
+        if (!root)
+            return;
+
+        saveLeaf(root->left, s);
+        if (!root->left && !root->right) {
+            int value = root->val;
+            s += to_string(root->val) + "_";
+        }
+        saveLeaf(root->right, s);
+    }
+
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        string s1, s2;
+        saveLeaf(root1, s1);
+        saveLeaf(root2, s2);
+
+        if (s1 != s2)
+            return false;
+
+        return true;
+    }
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
