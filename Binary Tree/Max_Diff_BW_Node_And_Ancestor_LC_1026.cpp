@@ -40,4 +40,25 @@ public:
         return maxDiff;
     }
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Optimal Solution. TC: o(n)
+
+class Solution {
+public:
+    int findMaxDiff(TreeNode* root, int currMin, int currMax) {
+        if (!root)
+            return abs(currMin - currMax);
+
+        currMin = min(currMin, root->val);
+        currMax = max(currMax, root->val);
+
+        int l = findMaxDiff(root->left, currMin, currMax);
+        int r = findMaxDiff(root->right, currMin, currMax);
+
+        return max(l, r);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        return findMaxDiff(root, root->val, root->val);
+    }
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
