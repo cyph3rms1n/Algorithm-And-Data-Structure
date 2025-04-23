@@ -6,8 +6,7 @@ public:
     // 1. Single Root
     // 2. Single parent
     // 3. No cycle
-    bool validateBinaryTreeNodes(int n, vector<int>& leftChild,
-                                 vector<int>& rightChild) {
+    bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
         vector<vector<int>> adj(n);
         unordered_map<int, int> childToParent;
 
