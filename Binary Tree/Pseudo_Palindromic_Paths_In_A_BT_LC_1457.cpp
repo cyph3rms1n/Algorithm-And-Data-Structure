@@ -43,4 +43,28 @@ public:
     }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Second Approach
+// Second Approach ( Bit Magic )
+class Solution {
+public:
+    void solve(TreeNode* root, int count, int& result) {
+        if (!root)
+            return;
+
+        count = (count ^ (1 << root->val));
+
+        if (!root->left && !root->right) {
+            if ((count & (count - 1)) == 0) {
+                result++;
+            }
+        }
+
+        solve(root->left, count, result);
+        solve(root->right, count, result);
+    }
+    int pseudoPalindromicPaths(TreeNode* root) {
+        int result = 0;
+        solve(root, 0, result);
+        return result;
+    }
+};
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
