@@ -72,3 +72,30 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+// Approach 4: Bottom-Up , using constant space
+// TC: o(n) SC: o(1)
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        // t[i] = max stolen money till i house
+        // i = 0 : no house
+        // i = 1 : 1 house
+        // i = 2 : 2 house and so on
+        int prevPrev = 0;
+        int prev = nums[0];
+
+        for (int i = 2; i <= n; i++) {
+            int steal = nums[i - 1] + prevPrev;
+            int skip = prev;
+
+            int temp = max(steal, skip);
+
+            prevPrev = prev;
+            prev = temp;
+        }
+        return prev;
+    }
+};
+//////////////////////////////////////////////////////////////////////////////////////////////////////
