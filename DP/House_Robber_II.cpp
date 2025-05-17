@@ -72,3 +72,37 @@ public:
     }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Approach 2: Bottom - Up using constant space
+// TC: o(n) SC: o(1)
+
+class Solution {
+public:
+    int solve(vector<int>& nums, int l, int r) {
+        int prevPrev = 0;
+        int prev = 0;
+
+        for (int i = l; i <= r; i++) {
+            int steal = nums[i] + prevPrev;
+            int skip = prev;
+
+            int temp = max(steal, skip);
+
+            prevPrev = prev;
+            prev = temp;
+        }
+        return prev;
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1)
+            return nums[0];
+        if (n == 2)
+            return max(nums[0], nums[1]);
+
+        int result1 = solve(nums, 0, n - 2);
+        int result2 = solve(nums, 1, n - 1);
+
+        return max(result1, result2);
+    }
+};
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
