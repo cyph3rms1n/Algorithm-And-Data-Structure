@@ -66,7 +66,6 @@ public:
 class Solution {
 public:
     int n;
-    int t[1001][1001];
 
     bool isPred(string& word1, string& word2) { // o(k)
         int M = word1.length();
