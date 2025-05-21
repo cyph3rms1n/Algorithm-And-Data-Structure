@@ -1,8 +1,7 @@
 // LC: 646. Maximum Length of Pair Chain
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Approach 1: Recursion + Memorization
-// TC: o(n) SC: o(n)
-
+// TC: o(n^2) SC: o(n^2)
 class Solution {
 public:
     int n;
@@ -33,5 +32,26 @@ public:
     }
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// Approach 1: Recursion + Memorization
-// TC: o(n) SC: o(n)
+// Approach 1: Bottom Up
+// TC: o(n^2) SC: o(n)
+class Solution {
+public:
+    int findLongestChain(vector<vector<int>>& pairs) {
+        int n = pairs.size();
+        sort(begin(pairs), end(pairs));
+        vector<int> t(n, 1);
+
+        int maxLength = 1;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (pairs[i][0] > pairs[j][1]) {
+                    t[i] = max(t[i], t[j] + 1);
+                    maxLength = max(maxLength, t[i]);
+                }
+            }
+        }
+        return maxLength;
+    }
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////
